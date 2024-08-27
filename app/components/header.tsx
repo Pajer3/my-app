@@ -100,31 +100,33 @@ export default function Header({ cartItems, updateCartItemQuantity }: HeaderProp
 
   const handleCheckout = async () => {
     const stripe = await stripePromise;
-
+  
     if (!stripe) {
       console.error("Stripe failed to load.");
       alert("Something went wrong. Please try again later.");
       return;
     }
-
+  
     const lineItems = cartItems.map((item) => ({
       price: "price_1PsTQ11JjEMfH4eC7UT4Oj9N", // Use correct price ID
       quantity: item.quantity,
     }));
-
+  
     const { error } = await stripe.redirectToCheckout({
       lineItems,
       mode: "payment",
-      successUrl: window.location.origin + "/#success",
-      cancelUrl: window.location.origin + "/#cancel",
+      successUrl: `${window.location.origin}/#success`,
+      cancelUrl: `${window.location.origin}/#cancel`,
+      shippingAddressCollection: {
+        allowedCountries: ["*"], // Allow all countries
+      },
     });
-
+  
     if (error) {
       console.error("Error:", error);
-      window.location.href = window.location.origin + "/#cancel";
+      window.location.href = `${window.location.origin}/#cancel`;
     }
   };
-
   return (
     <>
       <CheckoutMessage />
