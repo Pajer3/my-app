@@ -1,13 +1,19 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: '2024-06-20',
-  });  
+  apiVersion: '2024-06-20',
+});
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === 'POST') {
-    const { items } = req.body;
+const calculateOrderAmount = (items: any[]) => {
+  // Replace this with the actual calculation based on items
+  return 1400; // Example: $14.00
+};
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { items } = body;
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: calculateOrderAmount(items),
@@ -17,19 +23,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
 
-    res.status(200).json({
+    return NextResponse.json({
       clientSecret: paymentIntent.client_secret,
     });
-  } else {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
+  } catch (error) {
+    return new NextResponse('Internal Server Error', { status: 500 });
   }
-};
+}
 
-const calculateOrderAmount = (items: any[]) => {
-  // Replace this with the actual calculation based on items
-  return 1400; // Example: $14.00
-};
-
-// Export the handler as the default export
-export default handler;
+export async function GET() {
+  return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'POST' } });
+}
