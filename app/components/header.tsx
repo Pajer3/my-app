@@ -360,4 +360,3 @@ export default function Header({ cartItems, updateCartItemQuantity }: HeaderProp
     </>
   );
 }
-//push
