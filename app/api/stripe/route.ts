@@ -34,3 +34,16 @@ export async function POST(req: Request) {
 export async function GET() {
   return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'POST' } });
 }
+
+// Correct usage for Next.js App Router API
+const handler = async (req: Request) => {
+  if (req.method === 'POST') {
+    return POST(req);
+  } else if (req.method === 'GET') {
+    return GET();
+  } else {
+    return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'POST' } });
+  }
+};
+
+export default handler;
