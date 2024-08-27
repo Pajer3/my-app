@@ -1,7 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
-import ClientRootLayout from "./ClientRootLayout"; // Import the Client-side layout
+import Page from "./page"; // Import the Client-side layout
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,9 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientRootLayout>
+        <Page>
           {children}
-        </ClientRootLayout>
+        </Page>
       </body>
     </html>
   );
