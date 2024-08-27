@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
 // Safely handle the environment variable
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
 if (!stripeSecretKey) {
   throw new Error("Stripe secret key is missing in the environment variables");
