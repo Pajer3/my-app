@@ -11,7 +11,6 @@ if (!stripePublicKey) {
   throw new Error("Stripe public key is missing in the environment variables");
 }
 
-// Initialize Stripe
 const stripePromise = loadStripe(stripePublicKey);
 
 // Replace this with your actual Price ID from Stripe

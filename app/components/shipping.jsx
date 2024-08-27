@@ -54,7 +54,6 @@ export default function Shipping() {
             <ul className="list-disc list-inside text-lg text-gray-700">
               <li>Tracking is available for all orders.</li>
               <li>International shipping is available, but delivery times may vary depending on the destination.</li>
-              <li>Shipping methods include standard and express options.</li>
               <li>Please allow extra time during holidays or for custom items.</li>
               <li>If you have any issues with your order, our customer service team is here to help.</li>
             </ul>
