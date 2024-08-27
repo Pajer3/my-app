@@ -34,4 +34,3 @@ export async function POST(req: Request) {
 export async function GET() {
   return new NextResponse('Method Not Allowed', { status: 405, headers: { Allow: 'POST' } });
 }
-//tests
