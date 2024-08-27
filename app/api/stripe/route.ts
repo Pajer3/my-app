@@ -4,12 +4,12 @@ import Stripe from 'stripe';
 // Safely handle the environment variable
 const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
 
-if (!stripeSecretKey) {
+if (!stripePublicKey) {
   throw new Error("Stripe secret key is missing in the environment variables");
 }
 
 // Initialize the Stripe client with your secret key
-const stripe = new Stripe(stripeSecretKey, {
+const stripe = new Stripe(stripePublicKey, {
   apiVersion: '2024-06-20',
 });
 
