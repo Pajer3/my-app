@@ -1,8 +1,15 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
+// Safely handle the environment variable
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+
+if (!stripeSecretKey) {
+  throw new Error("Stripe secret key is missing in the environment variables");
+}
+
 // Initialize the Stripe client with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(stripeSecretKey, {
   apiVersion: '2024-06-20',
 });
 
@@ -15,7 +22,7 @@ const calculateOrderAmount = (items: any[]) => {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { items } = body;
+    const { items, province } = body;  // Receive province from frontend (optional)
 
     // Create a payment intent with Stripe
     const paymentIntent = await stripe.paymentIntents.create({
@@ -23,6 +30,19 @@ export async function POST(req: Request) {
       currency: 'usd',
       automatic_payment_methods: {
         enabled: true,
+      },
+      shipping: {
+        name: 'Customer Name', // Replace with the actual customer name if available
+        address: {
+          line1: '1234 Main Street', // Placeholder, Stripe will collect this
+          city: 'City',             // Placeholder, Stripe will collect this
+          postal_code: '90210',     // Placeholder, Stripe will collect this
+          state: province || '',    // Use province if provided
+          country: 'US',            // Set default country or collect via Stripe
+        },
+      },
+      metadata: {
+        province: province || 'Not provided', // Store province in metadata
       },
     });
 

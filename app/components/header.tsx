@@ -17,7 +17,13 @@ import CheckoutMessage from "./CheckoutMessage";
 
 
 // Initialize Stripe
-const stripePromise = loadStripe("pk_test_51Pr0cN1JjEMfH4eCCsoaHjxTmOQ7tFPnAkjtsuqPvbUH5cUyegAgmEcc1G6qHldgR8Xb6Sp7Il6aPW8I0NPTkwZH00sJCyomYs");
+const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+
+if (!stripePublicKey) {
+  throw new Error("Stripe public key is missing in the environment variables");
+}
+
+const stripePromise = loadStripe(stripePublicKey);
 
 type CartItem = {
   title: string;
