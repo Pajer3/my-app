@@ -76,8 +76,7 @@ export default function Help() {
               <li>
                 <strong>How can I contact customer support?</strong>
                 <p className="text-gray-300">
-                  You can contact our customer support team via email at support@warmhandwear.com or by calling our hotline at
-                  1-800-WARM-HANDS. We&apos;re here to help!
+                  You can contact our customer support team via email at info@heatinggloves.shop We&apos;re here to help!
                 </p>
               </li>
             </ul>
@@ -91,13 +90,7 @@ export default function Help() {
             </p>
             <div className="space-y-4">
               <p>
-                <strong>Email:</strong> <a href="mailto:support@warmhandwear.com" className="text-yellow-300">support@warmhandwear.com</a>
-              </p>
-              <p>
-                <strong>Phone:</strong> <a href="tel:1800WARMHANDS" className="text-yellow-300">1-800-WARM-HANDS</a>
-              </p>
-              <p>
-                <strong>Address:</strong> 123 Warm Street, Cozy City, 98765
+                <strong>Email:</strong> <a href="mailto:info@heatinggloves.shop" className="text-yellow-300">info@heatinggloves.shop</a>
               </p>
             </div>
           </div>

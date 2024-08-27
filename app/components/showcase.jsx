@@ -8,7 +8,7 @@ import Cookies from "js-cookie";import Image from 'next/image'; // Import the Im
 const stripePromise = loadStripe("pk_test_51Pr0cN1JjEMfH4eCCsoaHjxTmOQ7tFPnAkjtsuqPvbUH5cUyegAgmEcc1G6qHldgR8Xb6Sp7Il6aPW8I0NPTkwZH00sJCyomYs");
 
 // Replace this with your actual Price ID from Stripe
-const priceId = "price_1Ps2sD1JjEMfH4eCJvwlJ7kJ"; // Example Price ID
+const priceId = "price_1PsTQ11JjEMfH4eC7UT4Oj9N"; // Example Price ID
 
 const product = {
   title: "Heated Gloves",
