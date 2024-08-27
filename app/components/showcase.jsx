@@ -2,13 +2,20 @@
 
 import React, { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
-import Cookies from "js-cookie";import Image from 'next/image'; // Import the Image component
+import Image from 'next/image';
+
+// Safely handle the environment variable
+const stripePublicKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+
+if (!stripePublicKey) {
+  throw new Error("Stripe public key is missing in the environment variables");
+}
 
 // Initialize Stripe
-const stripePromise = loadStripe("pk_test_51Pr0cN1JjEMfH4eCCsoaHjxTmOQ7tFPnAkjtsuqPvbUH5cUyegAgmEcc1G6qHldgR8Xb6Sp7Il6aPW8I0NPTkwZH00sJCyomYs");
+const stripePromise = loadStripe(stripePublicKey);
 
 // Replace this with your actual Price ID from Stripe
-const priceId = "price_1Ps2sD1JjEMfH4eCJvwlJ7kJ"; // Example Price ID
+const priceId = "price_1PsTQ11JjEMfH4eC7UT4Oj9N"; // Example Price ID
 
 const product = {
   title: "Heated Gloves",
@@ -110,34 +117,34 @@ export default function Showcase({ addToCart }) {
         </div>
 
         <div>
-        <div className="md:w-1/2 flex flex-col items-center">
-          <div className="w-full max-w-lg mb-8">
-            <Image
-              src={selectedImage}
-              alt={product.title}
-              width={500} // Specify width
-              height={500} // Specify height
-              className="w-full h-auto object-cover rounded-lg shadow-lg transition-transform transform hover:scale-105"
-            />
-          </div>
-
-          <div className="flex space-x-4">
-            {product.gallery.map((imageUrl, index) => (
+          <div className="md:w-1/2 flex flex-col items-center">
+            <div className="w-full max-w-lg mb-8">
               <Image
-                key={index}
-                src={imageUrl}
-                alt={`${product.title} ${index + 1}`}
-                width={96} // Specify width
-                height={96} // Specify height
-                className={`w-24 h-24 object-cover rounded-lg cursor-pointer shadow-md transition-transform transform hover:scale-105 ${
-                  selectedImage === imageUrl ? "border-4 border-blue-500" : ""
-                }`}
-                onClick={() => setSelectedImage(imageUrl)}
+                src={selectedImage}
+                alt={product.title}
+                width={500} // Specify width
+                height={500} // Specify height
+                className="w-full h-auto object-cover rounded-lg shadow-lg transition-transform transform hover:scale-105"
               />
-            ))}
+            </div>
+
+            <div className="flex space-x-4">
+              {product.gallery.map((imageUrl, index) => (
+                <Image
+                  key={index}
+                  src={imageUrl}
+                  alt={`${product.title} ${index + 1}`}
+                  width={96} // Specify width
+                  height={96} // Specify height
+                  className={`w-24 h-24 object-cover rounded-lg cursor-pointer shadow-md transition-transform transform hover:scale-105 ${
+                    selectedImage === imageUrl ? "border-4 border-blue-500" : ""
+                  }`}
+                  onClick={() => setSelectedImage(imageUrl)}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
